@@ -1,0 +1,17 @@
+p// No ejecutes esto en consola, crea un archivo llamado Jenkinsfile con este contenido:
+pipeline {
+    agent any
+    stages {
+        stage('Probando Código') {
+            steps {
+                bat 'test.bat'
+            }
+        }
+        stage('Desplegando en Debian') {
+            steps {
+                // Usamos SCP para copiar el archivo de Windows a Debian
+                bat 'scp -o StrictHostKeyChecking=no index.html alumno@IP_DEBIAN:/var/www/html/index.html'
+            }
+        }
+    }
+}
