@@ -1,16 +1,19 @@
-p// No ejecutes esto en consola, crea un archivo llamado Jenkinsfile con este contenido:
 pipeline {
     agent any
+
     stages {
-        stage('Probando Código') {
+        stage('Copia de archivos') {
             steps {
-                bat 'test.bat'
+                echo 'Copiando archivos a XAMPP...'
+                // Copia tu index.html a la carpeta de XAMPP
+                bat 'copy index.html C:\\xampp\\htdocs /Y'
             }
         }
-        stage('Desplegando en Debian') {
+        stage('Pruebas') {
             steps {
-                // Usamos SCP para copiar el archivo de Windows a Debian
-                bat 'scp -o StrictHostKeyChecking=no index.html alumno@IP_DEBIAN:/var/www/html/index.html'
+                echo 'Ejecutando test...'
+                // Ejecuta tu archivo de prueba
+                bat 'test.bat'
             }
         }
     }
